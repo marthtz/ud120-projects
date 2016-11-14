@@ -19,4 +19,46 @@ import pickle
 
 enron_data = pickle.load(open("../final_project/final_project_dataset.pkl", "r"))
 
+data = []
 
+for Key in enron_data.keys():
+    if enron_data[Key]['poi'] is True:
+      data.append(Key)
+
+print len(data)
+
+data2 = []
+
+for Key in enron_data.keys():
+    if enron_data[Key]['salary'] != 'NaN':
+      data.append(Key)
+
+print len(data)
+data = []
+
+for Key in enron_data.keys():
+    if enron_data[Key]['email_address'] != 'NaN':
+      data.append(Key)
+
+print len(data)
+data = []
+
+for Key in enron_data.keys():
+    if enron_data[Key]['total_payments'] == 'NaN':
+      data.append(Key)
+
+print len(data)
+print (100.0/len(enron_data.keys()))*len(data)
+
+
+
+data = []
+
+for Key in enron_data.keys():
+    if enron_data[Key]['poi'] is True:
+        if enron_data[Key]['total_payments'] is 'NaN':
+            print Key
+            data.append(Key)
+
+
+print (100.0/len(enron_data.keys()))*len(data)
