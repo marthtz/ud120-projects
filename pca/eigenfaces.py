@@ -22,6 +22,7 @@ from time import time
 import logging
 import pylab as pl
 import numpy as np
+import sys
 
 from sklearn.cross_validation import train_test_split
 from sklearn.datasets import fetch_lfw_people
@@ -66,7 +67,8 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random
 ###############################################################################
 # Compute a PCA (eigenfaces) on the face dataset (treated as unlabeled
 # dataset): unsupervised feature extraction / dimensionality reduction
-n_components = 150
+#n_components = 150
+n_components = 250
 
 print "Extracting the top %d eigenfaces from %d faces" % (n_components, X_train.shape[0])
 t0 = time()
@@ -80,6 +82,13 @@ t0 = time()
 X_train_pca = pca.transform(X_train)
 X_test_pca = pca.transform(X_test)
 print "done in %0.3fs" % (time() - t0)
+
+#print len(pca.explained_variance_)
+
+print pca.explained_variance_ratio_[0]
+print pca.explained_variance_ratio_[1]
+
+#sys.exit()
 
 
 ###############################################################################
@@ -136,11 +145,15 @@ def title(y_pred, y_test, target_names, i):
 prediction_titles = [title(y_pred, y_test, target_names, i)
                          for i in range(y_pred.shape[0])]
 
-plot_gallery(X_test, prediction_titles, h, w)
+#plot_gallery(X_test, prediction_titles, h, w)
 
 # plot the gallery of the most significative eigenfaces
 
 eigenface_titles = ["eigenface %d" % i for i in range(eigenfaces.shape[0])]
-plot_gallery(eigenfaces, eigenface_titles, h, w)
+#plot_gallery(eigenfaces, eigenface_titles, h, w)
+
+
+
+
 
 pl.show()
